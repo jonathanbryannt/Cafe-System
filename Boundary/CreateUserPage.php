@@ -11,38 +11,37 @@
     $(document).ready(function() {
         $('.select2').select2();      
         // Add event listener for Offer selection
-        $('#role_id').on('change', function() {
+        $('#profile_id').on('change', function() {
             // Get the selected option
             var selectedOption = $(this).find('option:selected');
             
             // Populate the disabled text areas with the selected Offer details
-            $('#role_id_details').val(selectedOption.val());
-            $('#offer_date_details').val(selectedOption.data('name'));            
+            $('#profile_id_details').val(selectedOption.val());
+            $('#profile_name_details').val(selectedOption.data('name'));            
         });        
     });
 </script>
 
 <?php
 
-require "../Controller/SystemAdminCreateUserController.php";
+include_once "../Controller/SystemAdminCreateUserController.php";
 
-//$allRoles = SystemAdminCreateUserController::getRoles();
-// $allRoles = SystemAdminViewRoleController::getRoles();
+$createUserController = new SystemAdminCreateUserController();
+$allProfiles = $createUserController->getProfiles();
 
-// if(isset($_POST['submit'])) {        
-//     if($_POST["password"] == $_POST["confirm-password"]) {
-//         $userData = array("email"=>$_POST["email"], "name"=>$_POST["name"], "password"=>$_POST["password"], "role_id"=>$_POST["role_id"]);
-//         $status = SystemAdminCreateUserController::createUser($userData);
-//         if($status == true) {
-//             $message = "User Successfully Created";        
-//         } else {
-//             $message = "There was a problem in creating a new user";
-//         }
-//     } else {
-//         $message = "There was a problem in creating a new user";
-//     }
+if(isset($_POST['submit'])) {        
+    if($_POST["password"] == $_POST["confirm-password"]) {
+        $userData = array("email"=>$_POST["email"], "name"=>$_POST["name"], "password"=>$_POST["password"], "profile_id"=>$_POST["profile_id"]);        
+        if($createUserController->createUser($userData)) {
+            $message = "User Successfully Created";        
+        } else {
+            $message = "There was a problem in creating a new user";
+        }
+    } else {
+        $message = "There was a problem in creating a new user";
+    }
     
-// }
+}
 
 ?>
 
@@ -82,13 +81,13 @@ require "../Controller/SystemAdminCreateUserController.php";
                 </div>                       
                 <br/>        
                 <div class='form-group'>
-                    <label for="role_id">Select Role : </label>
-                    <select name="role_id" id="role_id" class="select2" required>                                           
+                    <label for="profile_id">Select Profile : </label>
+                    <select name="profile_id" id="profile_id" class="select2" required>                                           
                         <?php                        
-                        while($role = $allRoles->fetch_assoc()) { ?>                                                                                                
-                            <option value="<?php echo $role['role_id'];?>"
-                                    data-name="<?php echo $role['role_name'];?>">
-                                <?php echo $role['role_id']?> - <?php echo $role['role_name'];?>
+                        while($profile = $allProfiles->fetch_assoc()) { ?>                                                                                                
+                            <option value="<?php echo $profile['profile_id'];?>"
+                                    data-name="<?php echo $profile['profile_name'];?>">
+                                <?php echo $profile['profile_id']?> - <?php echo $profile['profile_name'];?>
                             </option>
                         <?php 
                         }

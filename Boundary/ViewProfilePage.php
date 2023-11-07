@@ -21,9 +21,10 @@
 
 <?php
 
-include "../Controller/SystemAdminViewRoleController.php";
+include_once "../Controller/SystemAdminViewProfileController.php";
 
-$allRoles = SystemAdminViewRoleController::getRoles();
+$viewProfileController = new SystemAdminViewProfileController();
+$allProfiles = $viewProfileController->getProfiles();
 
 ?>
 
@@ -32,31 +33,31 @@ $allRoles = SystemAdminViewRoleController::getRoles();
     <div id="layoutSidenav_content">
         <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Roles</h1>                                                          
+            <h1 class="mt-4">Profiles</h1>                                                          
                    
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-table me-1"></i>
-                    Role Entries
+                    Profile Entries
                 </div>
                 <div class="card-body">
                     <table class="cell-border stripe" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>Role ID</th>
+                                <th>Profile ID</th>
                                 <th>Name</th>
                                 <th>Actions</th>                                
                             </tr>
                         </thead>                                 
                         <tbody>
                             <?php                            
-                            while ($role = $allRoles->fetch_assoc()) {
+                            while ($profile = $allProfiles->fetch_assoc()) {
                                 echo "<tr>
-                                        <td>{$role['role_id']}</td>
-                                        <td>{$role['role_name']}</td>                                       
+                                        <td>{$profile['profile_id']}</td>
+                                        <td>{$profile['profile_name']}</td>                                       
                                         <td>
-                                            <a href='UpdateRolePage.php?id={$role['role_id']}'><i class='fas fa-pencil-alt'></i></a>                                            
-                                            <button class='btn' style='color:blue' onclick='confirmDelete({$role['role_id']})'><i class='fas fa-trash'></i></button>
+                                            <a href='UpdateProfilePage.php?id={$profile['profile_id']}'><i class='fas fa-pencil-alt'></i></a>                                            
+                                            <button class='btn' style='color:blue' onclick='confirmDelete({$profile['profile_id']})'><i class='fas fa-trash'></i></button>
                                         </td>
                                     </tr>";
                             }
@@ -72,7 +73,7 @@ $allRoles = SystemAdminViewRoleController::getRoles();
 </body>
 
 <script>    
-    function confirmDelete(roleId) {
+    function confirmDelete(profileId) {
         Swal.fire({
             title: "Confirm Deletion",
             text: "Are you sure you want to delete this offer?",
@@ -83,7 +84,7 @@ $allRoles = SystemAdminViewRoleController::getRoles();
             confirmButtonText: "Yes, delete it!",
         }).then((result) => {
             if (result.isConfirmed) {                
-                window.location.href = "DeleteRolePage.php?id=" + roleId;
+                window.location.href = "DeleteprofilePage.php?id=" + profileId;
             } 
         });
     }

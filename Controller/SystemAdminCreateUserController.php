@@ -1,17 +1,20 @@
 <?php
 
-include "../Entity/User.php";
-include "../Entity/Role.php";
+include_once "../Entity/User.php";
+include_once "../Entity/Profile.php";
+
 
 class SystemAdminCreateUserController {
 
-    // public static function getRoles() {
-    //     return Role::getRoles();
-    // }
+    public function getProfiles() {
+        $profile = new Profile();
+        return $profile->getProfiles();
+    }
 
-    // public static function createUser($userData) {
-    //     return User::createUser($userData);
-    // }
+    public function createUser($userData) {
+        $user = new User();
+        return $user->createUser($userData);        
+    }
 }
 
 ?>

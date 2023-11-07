@@ -1,11 +1,12 @@
 <?php
 
-include "../Entity/User.php";
+include_once "../Entity/User.php";
 
 class SystemAdminViewUserController {
 
-    public static function getUsers() {
-        return User::getUsers();
+    public function getUsers() {
+        $user = new User();
+        return $user->getUsers();        
     }
 
 }

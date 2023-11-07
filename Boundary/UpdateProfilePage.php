@@ -21,15 +21,18 @@
 
 <?php
 
-include "../Controller/SystemAdminCreateRoleController.php";
+include_once "../Controller/SystemAdminUpdateProfileController.php";
+
+$updateProfileController = new SystemAdminUpdateProfileController();
+
+$profileToUpdate = ($updateProfileController->getProfileById($_GET['id']))->fetch_assoc();
 
 if(isset($_POST['submit'])) {        
-    $roleData = array("name"=>$_POST["name"]);
-    $status = SystemAdminCreateRoleController::createRole($roleData);
-    if($status == true) {
-        $message = "Role Successfully Created";        
+    $profileData = array("name"=>$_POST["name"], "id"=>$_GET['id']);        
+    if($updateProfileController->updateProfile($profileData)) {
+        $message = "Profile Successfully Updated";        
     } else {
-        $message = "There was a problem in creating a new role";
+        $message = "There was a problem in updating the profile";
     }
 }
 
@@ -41,7 +44,7 @@ if(isset($_POST['submit'])) {
         <main>
         <div class="container-fluid px-4">
        
-        <h1 class="mt-4">Create New Roles</h1>                                                          
+        <h1 class="mt-4">Update Profiles</h1>                                                          
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
@@ -53,7 +56,7 @@ if(isset($_POST['submit'])) {
             <form action="" method="post" enctype="multipart/form-data" >                                          
                 <div class='form-group'>
                     <label>Name</label>
-                    <input type='text' name='name' value="" id='name' placeholder="Enter Role Name" class='form-control' required/>
+                    <input type='text' name='name' value="<?php echo $profileToUpdate['profile_name'] ?>" id='name' placeholder="Enter Profile Name" class='form-control' required/>
                 </div>       
                 <br/>             
                 <input type='submit' name='submit' class='btn btn-primary' value=' Submit ' />

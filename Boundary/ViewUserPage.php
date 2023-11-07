@@ -21,9 +21,10 @@
 
 <?php
 
-include "../Controller/SystemAdminViewUserController.php";
+include_once "../Controller/SystemAdminViewUserController.php";
 
-$allUsers = SystemAdminViewUserController::getUsers();
+$viewUserController = new SystemAdminViewUserController();
+$allUsers = $viewUserController->getUsers();
 
 ?>
 
@@ -37,7 +38,7 @@ $allUsers = SystemAdminViewUserController::getUsers();
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-table me-1"></i>
-                    Role Entries
+                    User Entries
                 </div>
                 <div class="card-body">
                     <table class="cell-border stripe" id="dataTable" width="100%" cellspacing="0">
@@ -46,25 +47,31 @@ $allUsers = SystemAdminViewUserController::getUsers();
                                 <th>User ID</th>
                                 <th>Email</th>
                                 <th>Name</th>
-                                <th>Role</th>
+                                <th>Profile</th>
                                 <th>Status</th>
                                 <th>Actions</th>                                
                             </tr>
                         </thead>                                 
                         <tbody>
-                            <?php                            
+                            <?php                                                  
                             while ($user = $allUsers->fetch_assoc()) {
                                 echo "<tr>
                                         <td>{$user['user_id']}</td>
                                         <td>{$user['email']}</td>
                                         <td>{$user['name']}</td>
-                                        <td>{$user['role_name']}</td>
+                                        <td>{$user['profile_name']}</td>
                                         <td>{$user['status']}</td>
                                         <td>
-                                            <a href='UpdateRolePage.php?id={$user['user_id']}'><i class='fas fa-pencil-alt'></i></a>                                            
-                                            <button class='btn' style='color:blue' onclick='confirmDelete({$user['user_id']})'><i class='fas fa-trash'></i></button>
-                                        </td>
-                                    </tr>";
+                                            <a href='UpdateUserPage.php?id={$user['user_id']}'><i class='fas fa-pencil-alt'></i></a>";                                            
+                                            if (!($_SESSION['currentProfile'] == "SYSTEM ADMIN" && $user['profile_name'] == "SYSTEM ADMIN")) {
+                                                if ($user['status'] == 'ACTIVE') {
+                                                    echo "<button class='btn' style='color: red' onclick='confirmSuspend({$user['user_id']})'><i class='fas fa-lock'></i></button>";
+                                                } else {
+                                                    echo "<button class='btn' style='color: green' onclick='confirmReactivate({$user['user_id']})'><i class='fas fa-lock-open'></i></button>";
+                                                }  
+                                            }                                                                                                                                                                                   
+                                        echo "</td>";
+                                    echo "</tr>";
                             }
                             ?>                                                               
                         </tbody>
@@ -78,18 +85,34 @@ $allUsers = SystemAdminViewUserController::getUsers();
 </body>
 
 <script>    
-    function confirmDelete(userId) {
+    function confirmSuspend(userId) {
         Swal.fire({
-            title: "Confirm Deletion",
-            text: "Are you sure you want to delete this offer?",
+            title: "Confirm Suspension",
+            text: "Are you sure you want to suspend this user?",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#d33",
             cancelButtonColor: "#3085d6",
-            confirmButtonText: "Yes, delete it!",
+            confirmButtonText: "Yes, suspend user!",
         }).then((result) => {
             if (result.isConfirmed) {                
                 window.location.href = "SuspendUserPage.php?id=" + userId;
+            } 
+        });
+    }
+
+    function confirmReactivate(userId) {
+        Swal.fire({
+            title: "Confirm Reactivation",
+            text: "Are you sure you want to reactivate this user?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, reactivate user!",
+        }).then((result) => {
+            if (result.isConfirmed) {                
+                window.location.href = "ReactivateUserPage.php?id=" + userId;
             } 
         });
     }

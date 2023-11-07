@@ -1,6 +1,6 @@
 <?php
 
-include "./Controller/LoginController.php";
+include_once "../Controller/LoginController.php";
 
 if (isset($_POST["login"])) {
     $email = $_POST['email'];
@@ -47,8 +47,7 @@ if (isset($_POST["login"])) {
                                             <input class="form-check-input" id="inputRememberPassword" name="remember" type="checkbox" value="1" />
                                             <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
                                         </div>
-                                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
-                                            <a class="small" href="password.html">Forgot Password?</a>
+                                        <div class="d-flex align-items-center justify-content-between mt-4 mb-0">                                            
                                             <button class="btn btn-primary" type="submit" name="login">Login</button>
                                         </div>
                                     </form>

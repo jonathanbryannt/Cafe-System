@@ -1,7 +1,7 @@
 <?php
 
-include '../Entity/SAdmin.php';
-include 'DAO.php';
+include_once "../Entity/SAdmin.php";
+include_once "DAO.php";
 
 class UserDAO extends DAO {    
     
@@ -9,14 +9,14 @@ class UserDAO extends DAO {
         
         $connection = parent::get_connection();                
 
-        $stmt = $connection->prepare("SELECT `user_id`, `email`, `password`, `name`, `role_id`, `status` FROM user WHERE email = (?)");
+        $stmt = $connection->prepare("SELECT `user_id`, `email`, `password`, `name`, `profile_id`, `status` FROM `user` WHERE `email` = (?)");
         $stmt->bind_param("s", $email);
         if($stmt->execute()) {            
-            $stmt->bind_result($ID, $name, $verifyPassword, $type);
+            $stmt->bind_result($user_id, $email, $verifyPassword, $name, $profile_id, $status);
             $stmt->fetch();                                          
-            if($password == $verifyPassword) {                
-                switch($type) { 
-                    case 'SYSTEM ADMIN':
+            if($password == $verifyPassword && $status == "ACTIVE") {                
+                switch($profile_id) { 
+                    case 1:
                         return new SAdmin($ID, $name, $email);
                 }
             }
