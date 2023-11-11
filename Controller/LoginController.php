@@ -19,6 +19,8 @@ class LoginController {
     
             if($_SESSION['currentProfile'] == "SYSTEM ADMIN") {
                 header("Location: SystemAdminDashboardPage.php");
+            } else if($_SESSION['currentProfile'] == "CAFE OWNER") {
+                header("Location: CafeOwnerDashboardPage.php");
             }
         }        
     }

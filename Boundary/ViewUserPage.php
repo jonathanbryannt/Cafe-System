@@ -29,7 +29,15 @@ $allUsers = $viewUserController->getUsers();
 ?>
 
 <body class="sb-nav-fixed">
-    <?php require "SystemAdminNav.php";?>
+    <?php
+        session_start();
+        if($_SESSION['currentProfile'] == "SYSTEM ADMIN") {
+            require "SystemAdminNav.php";
+        } else if($_SESSION['currentProfile'] == "CAFE OWNER") {
+            require "CafeOwnerNav.php";
+        }
+        
+    ?>
     <div id="layoutSidenav_content">
         <main>
         <div class="container-fluid px-4">
@@ -53,8 +61,14 @@ $allUsers = $viewUserController->getUsers();
                             </tr>
                         </thead>                                 
                         <tbody>
-                            <?php                                                  
+                            <?php                                               
                             while ($user = $allUsers->fetch_assoc()) {
+                                //if logged in as cafe owner, only display system admins
+                                if($_SESSION['currentProfile'] == "CAFE OWNER") {
+                                    if(!($user['profile_name'] == "SYSTEM ADMIN")) {
+                                        continue;
+                                    }
+                                }
                                 echo "<tr>
                                         <td>{$user['user_id']}</td>
                                         <td>{$user['email']}</td>
