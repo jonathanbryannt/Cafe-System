@@ -53,28 +53,25 @@ if (isset($_POST["logout"])) {
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
-                    <div class="sb-sidenav-menu-heading">Manage</div>
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                <div class="sb-sidenav-menu-heading">View</div>
+                    <a class="nav-link" href="CafeStaffViewBidPage.php" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-check"></i></div>
+                        My Bids                        
+                    </a>
+                    <a class="nav-link" href="ViewAssignedWorkslotPage.php" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-check"></i></div>
+                        Assigned Work-slots                        
+                    </a>
+                    <div class="sb-sidenav-menu-heading">Bid</div>                    
+                    <a class="nav-link" href="BidWorkslotPage.php" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-calendar"></i></div>
-                        Work-Slots
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="ViewWorkslotPage.php">View Work-slots</a>
-                            <a class="nav-link" href="CreateWorkslotPage.php">Create New Work-slots</a>
-                        </nav>
-                    </div>  
-                    <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts">
+                        Work-Slots                        
+                    </a>                                                    
+                    <div class="sb-sidenav-menu-heading">Choose</div>           
+                    <a class="nav-link" href="ChooseRolePage.php" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                        System Admins
-                        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                    </a>
-                    <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                        <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="ViewUserPage.php">View System Admins</a>                            
-                        </nav>
-                    </div>                
+                        Roles                        
+                    </a>                    
                 </div>
             </div>
             <div class="sb-sidenav-footer">

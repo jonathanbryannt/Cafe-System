@@ -16,12 +16,24 @@ class User {
         $this->profile = $profile;
     }  
 
+    public function getId() {
+        return $this->id;
+    }
+
     public function getProfile() {
         return $this->profile;
     }
 
     public function getName() {
         return $this->name;
+    }
+
+    public function getIdByEmail($email) {
+        $DAO = new DAO();
+        $connection = $DAO->get_connection();
+
+        $sql = "SELECT `user_id` FROM `user` WHERE `email` = '$email';";
+        return $connection->query($sql);
     }
 
     public function createUser($userData) {

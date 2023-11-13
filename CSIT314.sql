@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 11, 2023 at 03:33 AM
+-- Generation Time: Nov 13, 2023 at 05:18 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -33,6 +33,15 @@ CREATE TABLE `cafe_staff` (
   `role` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `cafe_staff`
+--
+
+INSERT INTO `cafe_staff` (`cafe_staff_id`, `user_id`, `role`) VALUES
+(1, 2, 'Chef'),
+(3, 70, NULL),
+(4, 12, 'Cashier');
+
 -- --------------------------------------------------------
 
 --
@@ -57,19 +66,6 @@ INSERT INTO `profile` (`profile_id`, `profile_name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `staff_bid_role`
---
-
-CREATE TABLE `staff_bid_role` (
-  `staff_bid_role_id` int(11) NOT NULL,
-  `cafe_staff_id` int(11) NOT NULL,
-  `role_type` enum('Chef','Cashier','Waiter') NOT NULL,
-  `bid_status` enum('Open','Closed') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `staff_bid_workslot`
 --
 
@@ -77,8 +73,19 @@ CREATE TABLE `staff_bid_workslot` (
   `staff_bid_workslot_id` int(11) NOT NULL,
   `cafe_staff_id` int(11) NOT NULL,
   `workslot_id` int(11) NOT NULL,
+  `bid_role` enum('Chef','Cashier','Waiter') NOT NULL,
   `bid_status` enum('Open','Closed') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `staff_bid_workslot`
+--
+
+INSERT INTO `staff_bid_workslot` (`staff_bid_workslot_id`, `cafe_staff_id`, `workslot_id`, `bid_role`, `bid_status`) VALUES
+(1, 1, 7, 'Chef', 'Open'),
+(2, 1, 10, 'Chef', 'Closed'),
+(7, 1, 8, 'Chef', 'Open'),
+(10, 1, 10, 'Chef', 'Open');
 
 -- --------------------------------------------------------
 
@@ -112,13 +119,21 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `email`, `password`, `name`, `profile_id`, `status`) VALUES
-(1, 'bryantindramadi@gmail.com', 'admin', 'admin', 1, 'ACTIVE'),
-(2, 'asdfdsa@asasd', 'asdasd', 'asdasd', 4, 'ACTIVE'),
+(1, 'bryantindramadi@gmail.com', 'admin', 'admin1', 1, 'ACTIVE'),
+(2, 'staff@gmail.com', 'staff', 'staff1', 4, 'ACTIVE'),
 (3, 'asdasd@asdasd', 'asdasdasd', 'asdasd', 3, 'ACTIVE'),
 (4, 'asdasd@asd.asd', 'asdasd', 'adsasd', 1, 'ACTIVE'),
 (5, 'tes@asdasd.asd', 'asdasd', 'asd', 2, 'ACTIVE'),
-(6, 'test@asdasd23', 'test', 'test23', 4, 'ACTIVE'),
-(7, 'test34@asd', 'asdasd', 'tes34', 2, 'ACTIVE');
+(7, 'test34@asd', 'asdasd', 'tes34', 2, 'ACTIVE'),
+(9, 'sysadmin@asdasd', 'asdasd', 'asdasd', 1, 'ACTIVE'),
+(10, 'owner@gmail.com', 'owner', 'owner', 2, 'ACTIVE'),
+(11, 'manager@gmail.com', 'manager', 'manager', 3, 'ACTIVE'),
+(12, 'staff2@gmail.com', 'staff2', 'staff2', 4, 'ACTIVE'),
+(54, 'testtest@asd', 'test', 'test', 1, 'ACTIVE'),
+(56, 'staff3@asdasd', 'staff3', 'staff3', 4, 'ACTIVE'),
+(61, 'staff3@gmail.com', 'asdasd', 'staff3', 4, 'ACTIVE'),
+(68, 'asdasd@asdsadsadsad', 'asdasd', 'asdsad', 4, 'ACTIVE'),
+(70, 'test34679@gmail', 'asdasd', 'asdasd', 4, 'ACTIVE');
 
 -- --------------------------------------------------------
 
@@ -129,12 +144,9 @@ INSERT INTO `user` (`user_id`, `email`, `password`, `name`, `profile_id`, `statu
 CREATE TABLE `workslot` (
   `workslot_id` int(11) NOT NULL,
   `workslot_name` varchar(255) NOT NULL,
-  `chef_max_qty` int(11) DEFAULT NULL CHECK (`chef_max_qty` > 1),
-  `cashier_max_qty` int(11) DEFAULT NULL CHECK (`cashier_max_qty` > 1),
-  `waiter_max_qty` int(11) DEFAULT NULL CHECK (`waiter_max_qty` > 1),
-  `chef_current_qty` int(11) NOT NULL DEFAULT 0,
-  `cashier_current_qty` int(11) NOT NULL DEFAULT 0,
-  `waiter_current_qty` int(11) NOT NULL DEFAULT 0,
+  `chef_qty` int(11) NOT NULL DEFAULT 0,
+  `cashier_qty` int(11) NOT NULL DEFAULT 0,
+  `waiter_qty` int(11) NOT NULL DEFAULT 0,
   `workslot_date` date NOT NULL,
   `start_time` time NOT NULL,
   `end_time` time NOT NULL
@@ -144,9 +156,11 @@ CREATE TABLE `workslot` (
 -- Dumping data for table `workslot`
 --
 
-INSERT INTO `workslot` (`workslot_id`, `workslot_name`, `chef_max_qty`, `cashier_max_qty`, `waiter_max_qty`, `chef_current_qty`, `cashier_current_qty`, `waiter_current_qty`, `workslot_date`, `start_time`, `end_time`) VALUES
-(2, 'workslot-1', 3, 3, 3, 0, 0, 0, '2023-11-13', '13:31:09', '21:29:09'),
-(3, 'workslot-2', 4, 2, 5, 0, 0, 0, '2023-11-16', '10:18:10', '21:18:10');
+INSERT INTO `workslot` (`workslot_id`, `workslot_name`, `chef_qty`, `cashier_qty`, `waiter_qty`, `workslot_date`, `start_time`, `end_time`) VALUES
+(7, 'workslot1', 0, 0, 0, '2023-11-15', '14:24:00', '02:24:00'),
+(8, 'workslot-2', 0, 0, 0, '2023-11-15', '14:25:00', '20:25:00'),
+(9, 'workslot-3', 0, 0, 0, '2023-11-29', '18:25:00', '22:25:00'),
+(10, 'workslot4', 0, 0, 0, '2023-11-23', '15:25:00', '22:26:00');
 
 --
 -- Triggers `workslot`
@@ -179,16 +193,12 @@ ALTER TABLE `profile`
   ADD PRIMARY KEY (`profile_id`);
 
 --
--- Indexes for table `staff_bid_role`
---
-ALTER TABLE `staff_bid_role`
-  ADD PRIMARY KEY (`staff_bid_role_id`);
-
---
 -- Indexes for table `staff_bid_workslot`
 --
 ALTER TABLE `staff_bid_workslot`
-  ADD PRIMARY KEY (`staff_bid_workslot_id`);
+  ADD PRIMARY KEY (`staff_bid_workslot_id`),
+  ADD UNIQUE KEY `uniqueBid` (`cafe_staff_id`,`workslot_id`,`bid_status`),
+  ADD KEY `workslot_id` (`workslot_id`);
 
 --
 -- Indexes for table `staff_workslots`
@@ -220,7 +230,7 @@ ALTER TABLE `workslot`
 -- AUTO_INCREMENT for table `cafe_staff`
 --
 ALTER TABLE `cafe_staff`
-  MODIFY `cafe_staff_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cafe_staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `profile`
@@ -229,16 +239,10 @@ ALTER TABLE `profile`
   MODIFY `profile_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT for table `staff_bid_role`
---
-ALTER TABLE `staff_bid_role`
-  MODIFY `staff_bid_role_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `staff_bid_workslot`
 --
 ALTER TABLE `staff_bid_workslot`
-  MODIFY `staff_bid_workslot_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `staff_bid_workslot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `staff_workslots`
@@ -250,13 +254,13 @@ ALTER TABLE `staff_workslots`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `workslot`
 --
 ALTER TABLE `workslot`
-  MODIFY `workslot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `workslot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
@@ -267,6 +271,13 @@ ALTER TABLE `workslot`
 --
 ALTER TABLE `cafe_staff`
   ADD CONSTRAINT `cafe_staff_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
+
+--
+-- Constraints for table `staff_bid_workslot`
+--
+ALTER TABLE `staff_bid_workslot`
+  ADD CONSTRAINT `staff_bid_workslot_ibfk_1` FOREIGN KEY (`cafe_staff_id`) REFERENCES `cafe_staff` (`cafe_staff_id`),
+  ADD CONSTRAINT `staff_bid_workslot_ibfk_2` FOREIGN KEY (`workslot_id`) REFERENCES `workslot` (`workslot_id`);
 
 --
 -- Constraints for table `staff_workslots`

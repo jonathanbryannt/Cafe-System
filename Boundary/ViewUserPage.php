@@ -35,8 +35,7 @@ $allUsers = $viewUserController->getUsers();
             require "SystemAdminNav.php";
         } else if($_SESSION['currentProfile'] == "CAFE OWNER") {
             require "CafeOwnerNav.php";
-        }
-        
+        }        
     ?>
     <div id="layoutSidenav_content">
         <main>

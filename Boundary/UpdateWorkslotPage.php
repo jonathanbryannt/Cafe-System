@@ -10,8 +10,7 @@ $updateWorkslotController = new CafeOwnerUpdateWorkslotController();
 $workslotToUpdate = ($updateWorkslotController->getWorkslotById($_GET['id']))->fetch_assoc();
 
 if(isset($_POST['submit'])) {        
-    $workslotData = array("workslot_name"=>$_POST["workslot_name"], "chef_max_qty"=>$_POST["chef_max_qty"], "cashier_max_qty"=>$_POST["cashier_max_qty"], "waiter_max_qty"=>$_POST["waiter_max_qty"],
-                      "workslot_date"=>$_POST["date"], "start_time"=>$_POST["start_time"], "end_time"=>$_POST["end_time"], "workslot_id"=>$_GET['id']);            
+    $workslotData = array("workslot_name"=>$_POST["workslot_name"], "workslot_date"=>$_POST["date"], "start_time"=>$_POST["start_time"], "end_time"=>$_POST["end_time"], "workslot_id"=>$_GET['id']);            
     if($updateWorkslotController->updateWorkslot($workslotData)) {
         $message = "Workslot Successfully Updated";
     } else {
@@ -41,22 +40,7 @@ if(isset($_POST['submit'])) {
                     <label>Workslot Name</label>
                     <input type='text' name='workslot_name' value="<?php echo $workslotToUpdate['workslot_name']; ?>" id='workslot_name' placeholder="Enter Workslot Name" class='form-control' required/>
                 </div>
-                <br/>
-                <div class='form-group'>
-                    <label>Chef Max Quantity</label>
-                    <input type='number' name='chef_max_qty' value="<?php echo $workslotToUpdate['chef_max_qty']; ?>" id='chef_max_qty' placeholder="Enter Chef Max Quantity" class='form-control' required/>
-                </div>
-                <br/>
-                <div class='form-group'>
-                    <label>Cashier Max Quantity</label>
-                    <input type='number' name='cashier_max_qty' value="<?php echo $workslotToUpdate['cashier_max_qty']; ?>" id='cashier_max_qty' placeholder="Enter Cashier Max Quantity" class='form-control' required/>
-                </div>
-                <br/>
-                <div class='form-group'>
-                    <label>Waiter Max Quantity</label>
-                    <input type='number' name='waiter_max_qty' value="<?php echo $workslotToUpdate['waiter_max_qty']; ?>" id='waiter_max_qty' placeholder="Enter Waiter Max Quantity" class='form-control' required/>
-                </div>
-                <br/>
+                <br/>                
                 <div class='form-group'>
                     <label>Date</label>
                     <input type='date' name='date' value="<?php echo $workslotToUpdate['workslot_date']; ?>" id='date' placeholder="Enter Date" class='form-control' required/>

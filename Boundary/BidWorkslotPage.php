@@ -1,8 +1,11 @@
 <?php
 
-include_once "../Controller/CafeOwnerViewWorkslotController.php";
+session_start();
 
-$viewWorkslotController = new CafeOwnerViewWorkslotController();
+include_once "../Controller/CafeStaffViewWorkslotController.php";
+include_once "../Controller/CafeStaffCreateBidController.php";
+
+$viewWorkslotController = new CafeStaffViewWorkslotController();
 
 $allWorkslots = $viewWorkslotController->getWorkslots();
 
@@ -19,6 +22,20 @@ while($workslot = $allWorkslots->fetch_assoc()) {
         'start_time' => $workslot['start_time'],
         'end_time' => $workslot['end_time']
     ];
+}
+
+if(isset($_GET['id'])) {
+    if(isset($_SESSION['cafe_staff_role'])) {
+        $workslotBidData = array("cafe_staff_id"=>$_SESSION['cafe_staff_id'], "workslot_id"=>$_GET['id'], "cafe_staff_role"=>$_SESSION['cafe_staff_role']);
+        $createBidController = new CafeStaffCreateBidController();
+        if($createBidController->createWorkslotBid($workslotBidData)){
+            $message = "Successfully bid for the workslot";
+        } else {
+            $message = "Failed to bid on the workslot";
+        }        
+    } else {
+        $message = "Choose a role first!";
+    }    
 }
 
 ?>
@@ -40,10 +57,15 @@ while($workslot = $allWorkslots->fetch_assoc()) {
   </head>
 
   <body class="sb-nav-fixed">
-    <?php require "CafeOwnerNav.php";?>
+    <?php require "CafeStaffNav.php";?>
     <div id="layoutSidenav_content">
         <main>
         <div class="content">
+        <?php 
+                if ($message){
+                    echo "<div class='alert alert-info'>".$message."</div>";
+                }
+        ?>
         <div id='calendar'></div>
     </div>
 
@@ -70,16 +92,14 @@ while($workslot = $allWorkslots->fetch_assoc()) {
                     showWorkslotDetails(info.event);
                 }
             });
- 
+
             calendar.render();
 
             function showWorkslotDetails(event) {                        
                 Swal.fire({
-                    title: 'Workslot Details',
-                    showDenyButton: true,
+                    title: 'Workslot Details',                    
                     showCancelButton: true,
-                    confirmButtonText: `Make Changes`,
-                    denyButtonText: `Delete`,
+                    confirmButtonText: `Bid this workslot`,                    
                     cancelButtonText: 'Close',
                     html: `
                         <p><strong>Workslot Name:</strong> ${event.title}</p>
@@ -92,28 +112,26 @@ while($workslot = $allWorkslots->fetch_assoc()) {
                     `,                
                 }).then((result) => {
                     if(result.isConfirmed) {
-                        window.location.href = "UpdateWorkslotPage.php?id=" + event.groupId;
-                    } else if (result.isDenied) {
-                        confirmDeleteWorkslot(event.groupId);
+                        confirmBidWorkslot(event.groupId);
                     }
                 });
             };
 
-            function confirmDeleteWorkslot(workslotId) {
+            function confirmBidWorkslot(workslotId) {
                 Swal.fire({
-                title: "Confirm Deletion",
-                text: "Are you sure you want to delete this workslot?",
+                title: "Confirm Bid",
+                text: "Are you sure you want to bid this workslot?",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#d33",
                 cancelButtonColor: "#3085d6",
-                confirmButtonText: "Yes, delete workslot!",
+                confirmButtonText: "Yes, bid workslot!",
                 }).then((result) => {
                     if (result.isConfirmed) {                
-                        window.location.href = "DeleteWorkslotPage.php?id=" + workslotId;
+                        window.location.href = "BidWorkslotPage.php?id=" + workslotId;
                     } 
                 });
-            };
+            }
         });
         
         </script>

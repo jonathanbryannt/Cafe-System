@@ -43,7 +43,14 @@ if(isset($_POST['submit'])) {
 ?>
 
 <body class="sb-nav-fixed">
-    <?php require "SystemAdminNav.php";?>
+    <?php
+        session_start();
+        if($_SESSION['currentProfile'] == "SYSTEM ADMIN") {
+            require "SystemAdminNav.php";
+        } else if($_SESSION['currentProfile'] == "CAFE OWNER") {
+            require "CafeOwnerNav.php";
+        }
+    ?>
     <div id="layoutSidenav_content">
         <main>
         <div class="container-fluid px-4">

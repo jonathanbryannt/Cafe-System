@@ -29,8 +29,7 @@ include_once "../Controller/CafeOwnerCreateWorkslotController.php";
 $createWorkslotController = new CafeOwnerCreateWorkslotController();
 
 if(isset($_POST['submit'])) {            
-    $workslotData = array("workslot_name"=>$_POST["workslot_name"], "chef_max_qty"=>$_POST["chef_max_qty"], "cashier_max_qty"=>$_POST["cashier_max_qty"], "waiter_max_qty"=>$_POST["waiter_max_qty"],
-                          "workslot_date"=>$_POST["date"], "start_time"=>$_POST["start_time"], "end_time"=>$_POST["end_time"]);
+    $workslotData = array("workslot_name"=>$_POST["workslot_name"], "workslot_date"=>$_POST["date"], "start_time"=>$_POST["start_time"], "end_time"=>$_POST["end_time"]);
     if($createWorkslotController->createWorkslot($workslotData)) {
         $message = "Work-slot Successfully Created";        
     } else {
@@ -59,21 +58,6 @@ if(isset($_POST['submit'])) {
                 <div class='form-group'>
                     <label>Workslot Name</label>
                     <input type='text' name='workslot_name' value="" id='workslot_name' placeholder="Enter Workslot Name" class='form-control' required/>
-                </div>
-                <br/>
-                <div class='form-group'>
-                    <label>Chef Max Quantity</label>
-                    <input type='number' name='chef_max_qty' value="" id='chef_max_qty' placeholder="Enter Chef Max Quantity" class='form-control' required/>
-                </div>
-                <br/>
-                <div class='form-group'>
-                    <label>Cashier Max Quantity</label>
-                    <input type='number' name='cashier_max_qty' value="" id='cashier_max_qty' placeholder="Enter Cashier Max Quantity" class='form-control' required/>
-                </div>
-                <br/>
-                <div class='form-group'>
-                    <label>Waiter Max Quantity</label>
-                    <input type='number' name='waiter_max_qty' value="" id='waiter_max_qty' placeholder="Enter Waiter Max Quantity" class='form-control' required/>
                 </div>
                 <br/>
                 <div class='form-group'>

@@ -11,7 +11,7 @@
     $(document).ready(function() {
         $('.select2').select2();      
         // Add event listener for Offer selection
-        $('#profile_id').on('change', function() {
+        $('#profile').on('change', function() {
             // Get the selected option
             var selectedOption = $(this).find('option:selected');
             
@@ -29,9 +29,15 @@ include_once "../Controller/SystemAdminCreateUserController.php";
 $createUserController = new SystemAdminCreateUserController();
 $allProfiles = $createUserController->getProfiles();
 
-if(isset($_POST['submit'])) {        
+if(isset($_POST['submit'])) {   
+    
+    $selectedProfile = explode(',', $_POST['profile']);    
+    
+    $profileId = $selectedProfile[0];
+    $profileName = $selectedProfile[1];    
+
     if($_POST["password"] == $_POST["confirm-password"]) {
-        $userData = array("email"=>$_POST["email"], "name"=>$_POST["name"], "password"=>$_POST["password"], "profile_id"=>$_POST["profile_id"]);        
+        $userData = array("email"=>$_POST["email"], "name"=>$_POST["name"], "password"=>$_POST["password"], "profile_id"=>$profileId, "profile_name"=>$profileName);        
         if($createUserController->createUser($userData)) {
             $message = "User Successfully Created";        
         } else {
@@ -81,11 +87,11 @@ if(isset($_POST['submit'])) {
                 </div>                       
                 <br/>        
                 <div class='form-group'>
-                    <label for="profile_id">Select Profile : </label>
-                    <select name="profile_id" id="profile_id" class="select2" required>                                           
+                    <label for="profile">Select Profile : </label>
+                    <select name="profile" id="profile" class="select2" required>                                           
                         <?php                        
                         while($profile = $allProfiles->fetch_assoc()) { ?>                                                                                                
-                            <option value="<?php echo $profile['profile_id'];?>"
+                            <option value="<?php echo $profile['profile_id'].",".$profile['profile_name'];?>"
                                     data-name="<?php echo $profile['profile_name'];?>">
                                 <?php echo $profile['profile_id']?> - <?php echo $profile['profile_name'];?>
                             </option>

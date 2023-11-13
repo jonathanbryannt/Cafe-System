@@ -2,6 +2,7 @@
 
 include_once "../Entity/SAdmin.php";
 include_once "../Entity/CafeOwner.php";
+include_once "../Entity/CafeStaff.php";
 include_once "DAO.php";
 
 class UserDAO extends DAO {    
@@ -21,6 +22,8 @@ class UserDAO extends DAO {
                         return new SAdmin($user_id, $name, $email);
                     case "CAFE OWNER":
                         return new CafeOwner($user_id, $name, $email);
+                    case "CAFE STAFF":
+                        return new CafeStaff($user_id, $name, $email);
                 }
             }
         }
@@ -28,7 +31,6 @@ class UserDAO extends DAO {
         return null;
     }  
 
-    // Other methods for updating, deleting, and managing user data in the database
 }
 
 

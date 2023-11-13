@@ -1,14 +1,14 @@
 <?php
 
-include_once "../Controller/CafeOwnerViewWorkslotController.php";
+include_once "../Controller/CafeStaffViewAssignedWorkslotController.php";
 
-$viewWorkslotController = new CafeOwnerViewWorkslotController();
+$viewAssignedWorkslotController = new CafeStaffViewAssignedWorkslotController();
 
-$allWorkslots = $viewWorkslotController->getWorkslots();
+$assignedWorkslots = $viewAssignedWorkslotController->getAssignedWorkslots($_SESSION['cafe_staff_id']);
 
 $events = [];
 
-while($workslot = $allWorkslots->fetch_assoc()) {
+while($workslot = $assignedWorkslots->fetch_assoc()) {
     $events[] = [
         'groupId' => $workslot['workslot_id'],
         'title' => $workslot['workslot_name'],
@@ -40,7 +40,7 @@ while($workslot = $allWorkslots->fetch_assoc()) {
   </head>
 
   <body class="sb-nav-fixed">
-    <?php require "CafeOwnerNav.php";?>
+    <?php require "CafeStaffNav.php";?>
     <div id="layoutSidenav_content">
         <main>
         <div class="content">
