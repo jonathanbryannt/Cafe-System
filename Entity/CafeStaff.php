@@ -31,6 +31,15 @@ class CafeStaff extends User{
         }
     }
 
+    public function getCafeStaffs() {
+        $DAO = new DAO();
+        $connection = $DAO->get_connection();
+
+        $sql = "SELECT `cafe_staff_id`, `name`, `role` FROM `cafe_staff` LEFT JOIN `user` ON `cafe_staff`.`user_id` = `user`.`user_id` WHERE `user`.`status` = 'ACTIVE'";
+
+        return $connection->query($sql);
+    }
+
     public function getStaffById($userId) {
         $DAO = new DAO();
         $connection = $DAO->get_connection();

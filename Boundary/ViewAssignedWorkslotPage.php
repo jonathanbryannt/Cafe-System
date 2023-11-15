@@ -75,11 +75,9 @@ while($workslot = $assignedWorkslots->fetch_assoc()) {
 
             function showWorkslotDetails(event) {                        
                 Swal.fire({
-                    title: 'Workslot Details',
-                    showDenyButton: true,
+                    title: 'Workslot Details',                    
                     showCancelButton: true,
-                    confirmButtonText: `Make Changes`,
-                    denyButtonText: `Delete`,
+                    showConfirmButton: false,                   
                     cancelButtonText: 'Close',
                     html: `
                         <p><strong>Workslot Name:</strong> ${event.title}</p>
@@ -90,30 +88,9 @@ while($workslot = $assignedWorkslots->fetch_assoc()) {
                         <p><strong>Start:</strong> ${event.extendedProps.start_time}</p>
                         <p><strong>End:</strong> ${event.extendedProps.end_time}</p>
                     `,                
-                }).then((result) => {
-                    if(result.isConfirmed) {
-                        window.location.href = "UpdateWorkslotPage.php?id=" + event.groupId;
-                    } else if (result.isDenied) {
-                        confirmDeleteWorkslot(event.groupId);
-                    }
                 });
             };
 
-            function confirmDeleteWorkslot(workslotId) {
-                Swal.fire({
-                title: "Confirm Deletion",
-                text: "Are you sure you want to delete this workslot?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#d33",
-                cancelButtonColor: "#3085d6",
-                confirmButtonText: "Yes, delete workslot!",
-                }).then((result) => {
-                    if (result.isConfirmed) {                
-                        window.location.href = "DeleteWorkslotPage.php?id=" + workslotId;
-                    } 
-                });
-            };
         });
         
         </script>
