@@ -19,7 +19,7 @@ if (isset($_POST["logout"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Dashboard - Cafe Owner</title>        
+    <title>Dashboard - Cafe Manager</title>        
     <link href="assets/css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>     
@@ -53,25 +53,16 @@ if (isset($_POST["logout"])) {
         <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
             <div class="sb-sidenav-menu">
                 <div class="nav">
-                    <div class="sb-sidenav-menu-heading">View</div>
-                    <a class="nav-link" href="CafeStaffViewBidPage.php" aria-expanded="false" aria-controls="collapseLayouts">
+                <div class="sb-sidenav-menu-heading">Manage</div>
+                    <a class="nav-link" href="CafeManagerViewBidPage.php" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-check"></i></div>
-                        My Bids                        
-                    </a>
-                    <a class="nav-link" href="ViewAssignedWorkslotPage.php" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><i class="fas fa-check"></i></div>
-                        Assigned Work-slots                        
-                    </a>
-                    <div class="sb-sidenav-menu-heading">Bid</div>                    
-                    <a class="nav-link" href="BidWorkslotPage.php" aria-expanded="false" aria-controls="collapseLayouts">
+                        Bids                        
+                    </a>                    
+                    <div class="sb-sidenav-menu-heading">Assign</div>                    
+                    <a class="nav-link" href="AssignWorkslotPage.php" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-calendar"></i></div>
                         Work-Slots                        
-                    </a>                                                    
-                    <div class="sb-sidenav-menu-heading">Choose</div>           
-                    <a class="nav-link" href="ChooseRolePage.php" aria-expanded="false" aria-controls="collapseLayouts">
-                        <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                        Roles                        
-                    </a>                    
+                    </a>                                                                                                       
                 </div>
             </div>
             <div class="sb-sidenav-footer">

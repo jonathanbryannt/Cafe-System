@@ -56,8 +56,7 @@ $allProfiles = $viewProfileController->getProfiles();
                                         <td>{$profile['profile_id']}</td>
                                         <td>{$profile['profile_name']}</td>                                       
                                         <td>
-                                            <a href='UpdateProfilePage.php?id={$profile['profile_id']}'><i class='fas fa-pencil-alt'></i></a>                                            
-                                            <button class='btn' style='color:blue' onclick='confirmDelete({$profile['profile_id']})'><i class='fas fa-trash'></i></button>
+                                            <a href='UpdateProfilePage.php?id={$profile['profile_id']}'><i class='fas fa-pencil-alt'></i></a>                                                                                        
                                         </td>
                                     </tr>";
                             }
@@ -71,21 +70,3 @@ $allProfiles = $viewProfileController->getProfiles();
     </div>
 </div>
 </body>
-
-<script>    
-    function confirmDelete(profileId) {
-        Swal.fire({
-            title: "Confirm Deletion",
-            text: "Are you sure you want to delete this offer?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#d33",
-            cancelButtonColor: "#3085d6",
-            confirmButtonText: "Yes, delete it!",
-        }).then((result) => {
-            if (result.isConfirmed) {                
-                window.location.href = "DeleteprofilePage.php?id=" + profileId;
-            } 
-        });
-    }
-</script>

@@ -72,6 +72,40 @@ class Workslot {
             return false;
         }
     }
+
+    public function assignWorkslot($assignData) {
+        $DAO = new DAO();
+        $connection = $DAO->get_connection();
+    
+        $stmt = null;
+    
+        switch ($assignData['bid_role']) {
+            case 'Chef':
+                $stmt = $connection->prepare("UPDATE `workslot` SET `chef_qty` = `chef_qty` + 1 WHERE `workslot`.`workslot_id` = (?)");
+                $stmt->bind_param("s", $assignData['workslot_id']);
+                break; 
+            case 'Cashier':
+                $stmt = $connection->prepare("UPDATE `workslot` SET `cashier_qty` = `cashier_qty` + 1 WHERE `workslot`.`workslot_id` = (?)");
+                $stmt->bind_param("s", $assignData['workslot_id']);
+                break;
+            case 'Waiter':
+                $stmt = $connection->prepare("UPDATE `workslot` SET `waiter_qty` = `waiter_qty` + 1 WHERE `workslot`.`workslot_id` = (?)");
+                $stmt->bind_param("s", $assignData['workslot_id']);
+                break;
+        }
+    
+        if ($stmt !== null && $stmt->execute()) {
+            $stmt2 = $connection->prepare("INSERT INTO `staff_workslots` (`staff_id`, `workslot_id`) VALUES (?, ?)");
+            $stmt2->bind_param("ss", $assignData['cafe_staff_id'], $assignData['workslot_id']);
+                
+            if ($stmt2->execute()) {
+                return true;
+            }
+        }
+    
+        return false;
+    }
+    
 }
 
 ?>

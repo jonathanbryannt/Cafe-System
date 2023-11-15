@@ -21,21 +21,21 @@
 
 <?php
 
-include_once "../Controller/CafeStaffViewBidController.php";
+include_once "../Controller/CafeManagerViewBidController.php";
 
-$viewBidController = new CafeStaffViewBidController();
-$myBids = $viewBidController->getBidsByStaffId($_SESSION['cafe_staff_id']);
+$viewBidController = new CafeManagerViewBidController();
+$allBids = $viewBidController->getBids();
 
 ?>
 
 <body class="sb-nav-fixed">
     <?php
-        require "CafeStaffNav.php";
+        require "CafeManagerNav.php";
     ?>
     <div id="layoutSidenav_content">
         <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">My Bids</h1>                                                          
+            <h1 class="mt-4">All Bids</h1>                                                          
                    
             <div class="card mb-4">
                 <div class="card-header">
@@ -47,27 +47,36 @@ $myBids = $viewBidController->getBidsByStaffId($_SESSION['cafe_staff_id']);
                         <thead>
                             <tr>
                                 <th>Bid ID</th>
+                                <th>Cafe Staff ID</th>
                                 <th>Workslot ID</th>
                                 <th>Workslot Name</th>
                                 <th>Workslot Date</th>
                                 <th>Start Time</th>
                                 <th>End Time</th>                                
                                 <th>Bid Status</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>                                 
                         <tbody>
                             <?php                                               
-                            while ($bid = $myBids->fetch_assoc()) {
+                            while ($bid = $allBids->fetch_assoc()) {
                                 $statusStyle = ($bid['bid_status'] === 'Open') ? 'color: green;' : 'color: red;';
                                 echo "<tr>
                                         <td>{$bid['staff_bid_workslot_id']}</td>
+                                        <td>{$bid['cafe_staff_id']}</td>
                                         <td>{$bid['workslot_id']}</td>
                                         <td>{$bid['workslot_name']}</td>
                                         <td>{$bid['workslot_date']}</td>
                                         <td>{$bid['start_time']}</td>
                                         <td>{$bid['end_time']}</td>
                                         <td style='{$statusStyle}'>{$bid['bid_status']}</td>
-                                    </tr>";
+                                        <td>";
+                                        if($bid['bid_status'] == 'Open') {
+                                            echo "<button class='btn' style='color: green' onclick='confirmApprove({$bid['staff_bid_workslot_id']})'><i class='fas fa-check'></i></button>";
+                                            echo "<button class='btn' style='color: green' onclick='confirmReject({$bid['staff_bid_workslot_id']})'><i class='fas fa-cross'></i></button>";
+                                        }
+                                        echo "</td>";
+                                    echo "</tr>";
                             }
                             ?>                                                               
                         </tbody>
@@ -78,4 +87,39 @@ $myBids = $viewBidController->getBidsByStaffId($_SESSION['cafe_staff_id']);
         </main>                
     </div>
 </div>
+
+<script>
+    function confirmApprove(bidId) {
+        Swal.fire({
+            title: "Confirm Approval",
+            text: "Are you sure you want to approve this bid?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, approve bid!",
+        }).then((result) => {
+            if (result.isConfirmed) {                
+                window.location.href = "ApproveBidPage.php?id=" + bidId;
+            } 
+        });
+    }
+
+    function confirmReject(bidId) {
+        Swal.fire({
+            title: "Confirm Rejection",
+            text: "Are you sure you want to reject this bid?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Yes, reject bid!",
+        }).then((result) => {
+            if (result.isConfirmed) {                
+                window.location.href = "RejectBidPage.php?id=" + bidId;
+            } 
+        });
+    }
+</script>
+
 </body>

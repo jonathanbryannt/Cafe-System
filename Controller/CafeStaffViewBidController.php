@@ -4,9 +4,9 @@ include_once "../Entity/Bid.php";
 
 class CafeStaffViewBidController {
 
-    public function getBidsById($cafeStaffId) {
+    public function getBidsByStaffId($cafeStaffId) {
         $bid = new Bid();
-        return $bid->getBidsById($cafeStaffId);
+        return $bid->getBidsByStaffId($cafeStaffId);
     }
 
 }
