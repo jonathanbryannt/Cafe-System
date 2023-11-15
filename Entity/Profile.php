@@ -50,18 +50,6 @@
                 return false;
             }
         }
-
-        public static function deleteprofileById($id) {
-            $DAO = new DAO();
-            $connection = $DAO->get_connection();
-
-            $sql  = "DELETE FROM `profile` WHERE `profile`.`profile_id` = '$id'";
-            if($connection->query($sql)) {
-                return true;
-            }else {
-                return false;
-            }
-        }
         
     }
 

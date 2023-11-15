@@ -105,6 +105,34 @@ class Workslot {
     
         return false;
     }
+
+    public function unassignWorkslot($staffWorkslotId, $workslotId, $staffRole) {
+        $DAO = new DAO();
+        $connection = $DAO->get_connection();
+
+        $sql  = "DELETE FROM `staff_workslots` WHERE `staff_workslots`.`staff_workslots_id` = '$staffWorkslotId'";
+        if($connection->query($sql)) {
+            switch ($staffRole) {
+                case 'Chef':
+                    $stmt = $connection->prepare("UPDATE `workslot` SET `chef_qty` = `chef_qty` - 1 WHERE `workslot`.`workslot_id` = (?)");
+                    $stmt->bind_param("s", $workslotId);
+                    break; 
+                case 'Cashier':
+                    $stmt = $connection->prepare("UPDATE `workslot` SET `cashier_qty` = `cashier_qty` - 1 WHERE `workslot`.`workslot_id` = (?)");
+                    $stmt->bind_param("s", $workslotId);
+                    break;
+                case 'Waiter':
+                    $stmt = $connection->prepare("UPDATE `workslot` SET `waiter_qty` = `waiter_qty` - 1 WHERE `workslot`.`workslot_id` = (?)");
+                    $stmt->bind_param("s", $workslotId);
+                    break;
+            }
+
+            if($stmt->execute()) {
+                return true;
+            }
+        }
+        return false;
+    }
     
 }
 

@@ -40,6 +40,18 @@ class CafeStaff extends User{
         return $connection->query($sql);
     }
 
+    public function getAssignedCafeStaffs() {
+        $DAO = new DAO();
+        $connection = $DAO->get_connection();
+
+        $sql = "SELECT `staff_workslots_id`, `cafe_staff_id`, `user`.`name`, `cafe_staff`.`role`, `workslot_id`, `workslot`.`workslot_name`, `workslot`.`workslot_date`, `workslot`.`start_time`, `workslot`.`end_time`         
+        LEFT JOIN `cafe_staff` ON `staff_workslots`.`cafe_staff_id` = `cafe_staff`.`cafe_staff_id`
+        LEFT JOIN `workslot` ON `staff_workslots`.`workslot_id` = `workslot`.`workslot_id`
+        LEFT JOIN `user` ON `cafe_staff`.`user_id` = `user`.`user_id`";
+
+        return $connection->query($sql);
+    }
+
     public function getStaffById($userId) {
         $DAO = new DAO();
         $connection = $DAO->get_connection();

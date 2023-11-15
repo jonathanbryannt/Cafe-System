@@ -9,6 +9,11 @@ class CafeManagerViewStaffController {
         return $cafeStaff->getCafeStaffs();
     }
 
+    public function getAssignedCafeStaffs() {
+        $cafeStaff = new CafeStaff();
+        return $cafeStaff->getAssignedCafeStaffs();
+    }
+
 }
 
 ?>

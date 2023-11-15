@@ -62,6 +62,11 @@ if (isset($_POST["logout"])) {
                     <a class="nav-link" href="AssignWorkslotPage.php" aria-expanded="false" aria-controls="collapseLayouts">
                         <div class="sb-nav-link-icon"><i class="fas fa-calendar"></i></div>
                         Work-Slots                        
+                    </a>
+                    <div class="sb-sidenav-menu-heading">View</div>                    
+                    <a class="nav-link" href="ViewAssignedStaffPage.php" aria-expanded="false" aria-controls="collapseLayouts">
+                        <div class="sb-nav-link-icon"><i class="fas fa-calendar"></i></div>
+                        Assigned Staffs                      
                     </a>                                                                                                       
                 </div>
             </div>
