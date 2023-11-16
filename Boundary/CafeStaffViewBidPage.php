@@ -21,6 +21,8 @@
 
 <?php
 
+session_start();
+
 include_once "../Controller/CafeStaffViewBidController.php";
 
 $viewBidController = new CafeStaffViewBidController();

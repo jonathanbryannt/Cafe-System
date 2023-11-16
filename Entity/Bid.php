@@ -37,6 +37,8 @@ class Bid {
         $connection = $DAO->get_connection();
 
         $sql = "SELECT `staff_bid_workslot_id`, `cafe_staff_id`, `workslot_id`, `bid_role` FROM `staff_bid_workslot` WHERE `staff_bid_workslot_id` = '$bidId'";
+
+        return $connection->query($sql);
     }
 
     public function approveBid($bidId) {

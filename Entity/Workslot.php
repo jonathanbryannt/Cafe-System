@@ -4,10 +4,6 @@ include_once "../DAO/DAO.php";
 
 class Workslot {
 
-    public function __construct() {
-
-    }
-
     public function getWorkslots() {
         $DAO = new DAO();
         $connection = $DAO->get_connection();
@@ -32,7 +28,7 @@ class Workslot {
         $connection = $DAO->get_connection();
 
         $sql = "SELECT `staff_workslots`.`workslot_id`, `workslot_name`, `chef_qty`, `cashier_qty`, `waiter_qty`, `workslot_date`, `start_time`, `end_time` 
-                FROM `staff_workslots` LEFT JOIN `workslot` ON `staff_workslots`.`workslot_id` = `workslot`.`workslot_id` WHERE `staff_id` = '$cafeStaffId'";
+                FROM `staff_workslots` LEFT JOIN `workslot` ON `staff_workslots`.`workslot_id` = `workslot`.`workslot_id` WHERE `staff_workslots`.`cafe_staff_id` = '$cafeStaffId'";
 
         return $connection->query($sql);
     }
@@ -95,7 +91,7 @@ class Workslot {
         }
     
         if ($stmt !== null && $stmt->execute()) {
-            $stmt2 = $connection->prepare("INSERT INTO `staff_workslots` (`staff_id`, `workslot_id`) VALUES (?, ?)");
+            $stmt2 = $connection->prepare("INSERT INTO `staff_workslots` (`cafe_staff_id`, `workslot_id`) VALUES (?, ?)");
             $stmt2->bind_param("ss", $assignData['cafe_staff_id'], $assignData['workslot_id']);
                 
             if ($stmt2->execute()) {

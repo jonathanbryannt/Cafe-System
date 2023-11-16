@@ -73,7 +73,7 @@ $assignedStaffs = $viewStaffController->getAssignedCafeStaffs();
                                         <td>{$staff['start_time']}</td>
                                         <td>{$staff['end_time']}</td>
                                         <td>                                            
-                                            <button class='btn' style='color: red' onclick='confirmUnassign({$staff['staff_workslots_id']}, {$staff['workslot_id']}, {$staff['role']})'><i class='fas fa-minus'></i></button>                                            
+                                            <button class='btn' style='color: red' onclick='confirmUnassign({$staff['staff_workslots_id']},{$staff['workslot_id']},\"{$staff['role']}\")'><i class='fas fa-minus'></i></button>                                            
                                         </td>
                                     </tr>";
                             }
@@ -86,6 +86,7 @@ $assignedStaffs = $viewStaffController->getAssignedCafeStaffs();
         </main>                
     </div>
 </div>
+
 </body>
 
 <script>    

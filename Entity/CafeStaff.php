@@ -35,7 +35,7 @@ class CafeStaff extends User{
         $DAO = new DAO();
         $connection = $DAO->get_connection();
 
-        $sql = "SELECT `cafe_staff_id`, `name`, `role` FROM `cafe_staff` LEFT JOIN `user` ON `cafe_staff`.`user_id` = `user`.`user_id` WHERE `user`.`status` = 'ACTIVE'";
+        $sql = "SELECT `cafe_staff_id`, `user`.`name`, `role` FROM `cafe_staff` LEFT JOIN `user` ON `cafe_staff`.`user_id` = `user`.`user_id` WHERE `user`.`status` = 'ACTIVE'";
 
         return $connection->query($sql);
     }
@@ -44,10 +44,11 @@ class CafeStaff extends User{
         $DAO = new DAO();
         $connection = $DAO->get_connection();
 
-        $sql = "SELECT `staff_workslots_id`, `cafe_staff_id`, `user`.`name`, `cafe_staff`.`role`, `workslot_id`, `workslot`.`workslot_name`, `workslot`.`workslot_date`, `workslot`.`start_time`, `workslot`.`end_time`         
+        $sql = "SELECT `staff_workslots_id`, `staff_workslots`.`cafe_staff_id`, `user`.`name`, `cafe_staff`.`role`, `staff_workslots`.`workslot_id`, `workslot`.`workslot_name`, `workslot`.`workslot_date`, `workslot`.`start_time`, `workslot`.`end_time`         
+        FROM `staff_workslots`
         LEFT JOIN `cafe_staff` ON `staff_workslots`.`cafe_staff_id` = `cafe_staff`.`cafe_staff_id`
         LEFT JOIN `workslot` ON `staff_workslots`.`workslot_id` = `workslot`.`workslot_id`
-        LEFT JOIN `user` ON `cafe_staff`.`user_id` = `user`.`user_id`";
+        LEFT JOIN `user` ON `cafe_staff`.`user_id` = `user`.`user_id`;";
 
         return $connection->query($sql);
     }

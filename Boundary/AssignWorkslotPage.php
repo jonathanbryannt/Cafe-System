@@ -1,14 +1,15 @@
 <?php
 
-include_once "../Controller/CafeStaffViewAssignedWorkslotController.php";
+include_once "../Controller/CafeManagerAssignWorkslotController.php";
 
-$viewAssignedWorkslotController = new CafeStaffViewAssignedWorkslotController();
+$assignWorkslotController = new CafeManagerAssignWorkslotController();
 
-$assignedWorkslots = $viewAssignedWorkslotController->getAssignedWorkslots($_SESSION['cafe_staff_id']);
+$workslots = $assignWorkslotController->getWorkslots();
 
 $events = [];
 
-while($workslot = $assignedWorkslots->fetch_assoc()) {
+
+while($workslot = $workslots->fetch_assoc()) {
     $events[] = [
         'groupId' => $workslot['workslot_id'],
         'title' => $workslot['workslot_name'],

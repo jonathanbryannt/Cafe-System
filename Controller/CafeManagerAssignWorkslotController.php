@@ -5,6 +5,11 @@ include_once "../Entity/Workslot.php";
 
 class CafeManagerAssignWorkslotController {
 
+    public function getWorkslots() {
+        $workslot = new Workslot();
+        return $workslot->getWorkslots();
+    }
+
     public function assignWorkslotByBidID($bidID) {
         $bid = new Bid();
         $workslot = new Workslot();
@@ -18,7 +23,7 @@ class CafeManagerAssignWorkslotController {
         $workslot = new Workslot();
         return $workslot->assignWorkslot($assignData);
     }
-    
+
 }
 
 ?>

@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 include_once "../Controller/CafeStaffViewAssignedWorkslotController.php";
 
 $viewAssignedWorkslotController = new CafeStaffViewAssignedWorkslotController();

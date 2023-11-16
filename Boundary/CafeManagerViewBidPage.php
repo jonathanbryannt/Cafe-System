@@ -60,7 +60,7 @@ $allBids = $viewBidController->getBids();
                         <tbody>
                             <?php                                               
                             while ($bid = $allBids->fetch_assoc()) {
-                                $statusStyle = ($bid['bid_status'] === 'Open') ? 'color: green;' : 'color: red;';
+                                $statusStyle = ($bid['bid_status'] === 'Open' || $bid['bid_status'] === 'Approved') ? 'color: green;' : 'color: red;';
                                 echo "<tr>
                                         <td>{$bid['staff_bid_workslot_id']}</td>
                                         <td>{$bid['cafe_staff_id']}</td>
@@ -73,7 +73,7 @@ $allBids = $viewBidController->getBids();
                                         <td>";
                                         if($bid['bid_status'] == 'Open') {
                                             echo "<button class='btn' style='color: green' onclick='confirmApprove({$bid['staff_bid_workslot_id']})'><i class='fas fa-check'></i></button>";
-                                            echo "<button class='btn' style='color: green' onclick='confirmReject({$bid['staff_bid_workslot_id']})'><i class='fas fa-cross'></i></button>";
+                                            echo "<button class='btn' style='color: red' onclick='confirmReject({$bid['staff_bid_workslot_id']})'><i class='fas fa-close'></i></button>";
                                         }
                                         echo "</td>";
                                     echo "</tr>";

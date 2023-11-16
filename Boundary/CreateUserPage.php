@@ -69,7 +69,7 @@ if(isset($_POST['submit'])) {
             <form action="" method="post" enctype="multipart/form-data" >                                          
                 <div class='form-group'>
                     <label>Email</label>
-                    <input type='text' name='email' value="" id='email' placeholder="Enter Email" class='form-control' required/>
+                    <input type='email' name='email' value="" id='email' placeholder="Enter Email" class='form-control' required/>
                 </div>
                 <div class='form-group'>
                     <label>Name</label>

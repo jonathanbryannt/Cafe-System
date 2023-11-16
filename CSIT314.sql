@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 13, 2023 at 05:18 PM
+-- Generation Time: Nov 16, 2023 at 09:09 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -58,10 +58,10 @@ CREATE TABLE `profile` (
 --
 
 INSERT INTO `profile` (`profile_id`, `profile_name`) VALUES
-(1, 'SYSTEM ADMIN'),
-(2, 'CAFE OWNER'),
 (3, 'CAFE MANAGER'),
-(4, 'CAFE STAFF');
+(2, 'CAFE OWNER'),
+(4, 'CAFE STAFF'),
+(1, 'SYSTEM ADMIN');
 
 -- --------------------------------------------------------
 
@@ -74,7 +74,7 @@ CREATE TABLE `staff_bid_workslot` (
   `cafe_staff_id` int(11) NOT NULL,
   `workslot_id` int(11) NOT NULL,
   `bid_role` enum('Chef','Cashier','Waiter') NOT NULL,
-  `bid_status` enum('Open','Closed') NOT NULL
+  `bid_status` enum('Open','Approved','Rejected') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -82,10 +82,7 @@ CREATE TABLE `staff_bid_workslot` (
 --
 
 INSERT INTO `staff_bid_workslot` (`staff_bid_workslot_id`, `cafe_staff_id`, `workslot_id`, `bid_role`, `bid_status`) VALUES
-(1, 1, 7, 'Chef', 'Open'),
-(2, 1, 10, 'Chef', 'Closed'),
-(7, 1, 8, 'Chef', 'Open'),
-(10, 1, 10, 'Chef', 'Open');
+(14, 1, 13, 'Chef', 'Approved');
 
 -- --------------------------------------------------------
 
@@ -95,9 +92,16 @@ INSERT INTO `staff_bid_workslot` (`staff_bid_workslot_id`, `cafe_staff_id`, `wor
 
 CREATE TABLE `staff_workslots` (
   `staff_workslots_id` int(11) NOT NULL,
-  `staff_id` int(11) NOT NULL,
+  `cafe_staff_id` int(11) NOT NULL,
   `workslot_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `staff_workslots`
+--
+
+INSERT INTO `staff_workslots` (`staff_workslots_id`, `cafe_staff_id`, `workslot_id`) VALUES
+(4, 1, 13);
 
 -- --------------------------------------------------------
 
@@ -157,10 +161,7 @@ CREATE TABLE `workslot` (
 --
 
 INSERT INTO `workslot` (`workslot_id`, `workslot_name`, `chef_qty`, `cashier_qty`, `waiter_qty`, `workslot_date`, `start_time`, `end_time`) VALUES
-(7, 'workslot1', 0, 0, 0, '2023-11-15', '14:24:00', '02:24:00'),
-(8, 'workslot-2', 0, 0, 0, '2023-11-15', '14:25:00', '20:25:00'),
-(9, 'workslot-3', 0, 0, 0, '2023-11-29', '18:25:00', '22:25:00'),
-(10, 'workslot4', 0, 0, 0, '2023-11-23', '15:25:00', '22:26:00');
+(13, 'workslot1', 1, 0, 0, '2023-11-23', '15:02:00', '21:02:00');
 
 --
 -- Triggers `workslot`
@@ -190,7 +191,8 @@ ALTER TABLE `cafe_staff`
 -- Indexes for table `profile`
 --
 ALTER TABLE `profile`
-  ADD PRIMARY KEY (`profile_id`);
+  ADD PRIMARY KEY (`profile_id`),
+  ADD UNIQUE KEY `profile_name` (`profile_name`);
 
 --
 -- Indexes for table `staff_bid_workslot`
@@ -205,7 +207,7 @@ ALTER TABLE `staff_bid_workslot`
 --
 ALTER TABLE `staff_workslots`
   ADD PRIMARY KEY (`staff_workslots_id`),
-  ADD KEY `staff_id` (`staff_id`),
+  ADD UNIQUE KEY `unique_staff_workslot` (`cafe_staff_id`,`workslot_id`),
   ADD KEY `workslot_id` (`workslot_id`);
 
 --
@@ -242,13 +244,13 @@ ALTER TABLE `profile`
 -- AUTO_INCREMENT for table `staff_bid_workslot`
 --
 ALTER TABLE `staff_bid_workslot`
-  MODIFY `staff_bid_workslot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `staff_bid_workslot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `staff_workslots`
 --
 ALTER TABLE `staff_workslots`
-  MODIFY `staff_workslots_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `staff_workslots_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -260,7 +262,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `workslot`
 --
 ALTER TABLE `workslot`
-  MODIFY `workslot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `workslot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables
@@ -283,7 +285,7 @@ ALTER TABLE `staff_bid_workslot`
 -- Constraints for table `staff_workslots`
 --
 ALTER TABLE `staff_workslots`
-  ADD CONSTRAINT `staff_workslots_ibfk_1` FOREIGN KEY (`staff_id`) REFERENCES `user` (`user_id`),
+  ADD CONSTRAINT `staff_workslots_ibfk_1` FOREIGN KEY (`cafe_staff_id`) REFERENCES `user` (`user_id`),
   ADD CONSTRAINT `staff_workslots_ibfk_2` FOREIGN KEY (`workslot_id`) REFERENCES `workslot` (`workslot_id`);
 
 --

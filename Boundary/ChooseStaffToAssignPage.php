@@ -33,7 +33,12 @@ $allCafeStaffs = $viewStaffController->getCafeStaffs();
 
 if(isset($_POST['submit'])) {   
     
-    $assignData = array("workslot_id"=>$_GET['id'], "cafe_staff_id"=>$_POST['cafe_staff_id']);
+    $selectedStaff = explode(',', $_POST['cafe_staff']);
+
+    $staffId = $selectedStaff[0];
+    $staffRole = $selectedStaff[1];
+
+    $assignData = array("workslot_id"=>$_GET['id'], "cafe_staff_id"=>$staffId, "bid_role"=>$staffRole);
     
     if($assignWorkslotController->assignWorkslot($assignData)) {
         header("Location: AssignWorkslotPage.php");
@@ -46,7 +51,7 @@ if(isset($_POST['submit'])) {
 ?>
 
 <body class="sb-nav-fixed">
-    <?php require "SystemAdminNav.php";?>
+    <?php require "CafeManagerNav.php";?>
     <div id="layoutSidenav_content">
         <main>
         <div class="container-fluid px-4">
@@ -63,12 +68,12 @@ if(isset($_POST['submit'])) {
             <form action="" method="post" enctype="multipart/form-data" >                                                               
                 <div class='form-group'>
                     <label for="cafestaff">Select Cafe Staff : </label>
-                    <select name="cafe_staff_id" id="cafestaff" class="select2" required>                                           
+                    <select name="cafe_staff" id="cafestaff" class="select2" required>                                           
                         <?php                        
                         while($cafeStaff = $allCafeStaffs->fetch_assoc()) { ?>                                                                                                
-                            <option value="<?php echo $cafeStaff['cafe_staff_id'];?>"
-                                    data-name="<?php echo $cafeStaff['cafe_staff_name'];?>">
-                                <?php echo $cafestaff['cafe_staff_id']?> - <?php echo $cafeStaff['cafe_staff_name'];?>, <?php echo $cafeStaff['role']?>
+                            <option value="<?php echo $cafeStaff['cafe_staff_id'].",".$cafeStaff['role'];?>"
+                                    data-name="<?php echo $cafeStaff['name'];?>">
+                                <?php echo $cafeStaff['cafe_staff_id']?> - <?php echo $cafeStaff['name'];?>, <?php echo $cafeStaff['role']?>
                             </option>
                         <?php 
                         }
