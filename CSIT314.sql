@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 17, 2023 at 09:33 AM
+-- Generation Time: Nov 17, 2023 at 10:20 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `cafe_staff` (
   `cafe_staff_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `role` varchar(255) DEFAULT NULL
+  `role` enum('Chef','Cashier','Waiter') DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -40,7 +40,63 @@ CREATE TABLE `cafe_staff` (
 INSERT INTO `cafe_staff` (`cafe_staff_id`, `user_id`, `role`) VALUES
 (1, 2, 'Chef'),
 (3, 70, NULL),
-(4, 12, 'Cashier');
+(4, 12, 'Cashier'),
+(5, 71, 'Waiter'),
+(6, 56, NULL),
+(7, 56, NULL),
+(8, 61, NULL),
+(9, 68, NULL),
+(10, 142, NULL),
+(11, 143, NULL),
+(12, 144, NULL),
+(13, 145, NULL),
+(14, 146, NULL),
+(15, 147, NULL),
+(16, 148, NULL),
+(17, 149, NULL),
+(18, 150, NULL),
+(19, 151, NULL),
+(20, 152, NULL),
+(21, 153, NULL),
+(22, 154, NULL),
+(23, 155, NULL),
+(24, 156, NULL),
+(25, 157, NULL),
+(26, 158, NULL),
+(27, 159, 'Cashier'),
+(28, 160, NULL),
+(29, 161, NULL),
+(30, 162, NULL),
+(31, 163, NULL),
+(32, 164, NULL),
+(33, 165, NULL),
+(34, 166, NULL),
+(35, 167, NULL),
+(36, 168, NULL),
+(37, 169, NULL),
+(38, 170, NULL),
+(39, 171, NULL),
+(40, 172, NULL),
+(41, 173, NULL),
+(42, 174, NULL),
+(43, 175, NULL),
+(44, 176, NULL),
+(45, 177, NULL),
+(46, 178, NULL),
+(47, 179, NULL),
+(48, 180, NULL),
+(49, 181, NULL),
+(50, 182, NULL),
+(51, 183, NULL),
+(52, 184, NULL),
+(53, 185, NULL),
+(54, 186, NULL),
+(55, 187, NULL),
+(56, 188, NULL),
+(57, 189, NULL),
+(58, 190, NULL),
+(59, 191, NULL),
+(60, 192, NULL);
 
 -- --------------------------------------------------------
 
@@ -113,7 +169,13 @@ CREATE TABLE `staff_workslots` (
 --
 
 INSERT INTO `staff_workslots` (`staff_workslots_id`, `cafe_staff_id`, `workslot_id`) VALUES
-(4, 1, 13);
+(4, 1, 13),
+(8, 1, 15),
+(5, 4, 16),
+(12, 5, 17),
+(11, 27, 15),
+(13, 27, 24),
+(14, 27, 33);
 
 -- --------------------------------------------------------
 
@@ -307,16 +369,16 @@ CREATE TABLE `workslot` (
 INSERT INTO `workslot` (`workslot_id`, `workslot_name`, `chef_qty`, `cashier_qty`, `waiter_qty`, `workslot_date`, `start_time`, `end_time`) VALUES
 (13, 'workslot1', 1, 0, 0, '2023-11-23', '15:02:00', '21:02:00'),
 (14, 'workslot-2', 0, 0, 0, '2023-11-24', '10:30:00', '22:30:00'),
-(15, 'workslot 10', 0, 0, 0, '2023-11-20', '15:00:00', '21:00:00'),
-(16, 'workslot 11', 0, 0, 0, '2023-11-21', '15:00:00', '21:00:00'),
-(17, 'workslot 12', 0, 0, 0, '2023-11-22', '15:00:00', '21:00:00'),
+(15, 'workslot 10', 1, 1, 0, '2023-11-20', '15:00:00', '21:00:00'),
+(16, 'workslot 11', 0, 1, 0, '2023-11-21', '15:00:00', '21:00:00'),
+(17, 'workslot 12', 0, 0, 1, '2023-11-22', '15:00:00', '21:00:00'),
 (18, 'workslot 13', 0, 0, 0, '2023-11-23', '15:00:00', '21:00:00'),
 (19, 'workslot 14', 0, 0, 0, '2023-11-24', '15:00:00', '21:00:00'),
 (20, 'workslot 15', 0, 0, 0, '2023-11-25', '15:00:00', '21:00:00'),
 (21, 'workslot 16', 0, 0, 0, '2023-11-26', '15:00:00', '21:00:00'),
 (22, 'workslot 17', 0, 0, 0, '2023-11-27', '15:00:00', '21:00:00'),
 (23, 'workslot 18', 0, 0, 0, '2023-11-28', '15:00:00', '21:00:00'),
-(24, 'workslot 19', 0, 0, 0, '2023-11-29', '15:00:00', '21:00:00'),
+(24, 'workslot 19', 0, 1, 0, '2023-11-29', '15:00:00', '21:00:00'),
 (25, 'workslot 11', 0, 0, 0, '2023-12-01', '15:00:00', '21:00:00'),
 (26, 'workslot 12', 0, 0, 0, '2023-12-02', '15:00:00', '21:00:00'),
 (27, 'workslot 13', 0, 0, 0, '2023-12-03', '15:00:00', '21:00:00'),
@@ -325,7 +387,7 @@ INSERT INTO `workslot` (`workslot_id`, `workslot_name`, `chef_qty`, `cashier_qty
 (30, 'workslot 16', 0, 0, 0, '2023-12-06', '15:00:00', '21:00:00'),
 (31, 'workslot 17', 0, 0, 0, '2023-12-07', '15:00:00', '21:00:00'),
 (32, 'workslot 18', 0, 0, 0, '2023-12-08', '15:00:00', '21:00:00'),
-(33, 'workslot 19', 0, 0, 0, '2023-12-09', '15:00:00', '21:00:00'),
+(33, 'workslot 19', 0, 1, 0, '2023-12-09', '15:00:00', '21:00:00'),
 (34, 'workslot 20', 0, 0, 0, '2023-12-10', '15:00:00', '21:00:00'),
 (35, 'workslot 21', 0, 0, 0, '2023-12-11', '15:00:00', '21:00:00'),
 (36, 'workslot 22', 0, 0, 0, '2023-12-12', '15:00:00', '21:00:00'),
@@ -418,7 +480,7 @@ ALTER TABLE `workslot`
 -- AUTO_INCREMENT for table `cafe_staff`
 --
 ALTER TABLE `cafe_staff`
-  MODIFY `cafe_staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `cafe_staff_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `profile`
@@ -436,7 +498,7 @@ ALTER TABLE `staff_bid_workslot`
 -- AUTO_INCREMENT for table `staff_workslots`
 --
 ALTER TABLE `staff_workslots`
-  MODIFY `staff_workslots_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `staff_workslots_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -471,7 +533,7 @@ ALTER TABLE `staff_bid_workslot`
 -- Constraints for table `staff_workslots`
 --
 ALTER TABLE `staff_workslots`
-  ADD CONSTRAINT `staff_workslots_ibfk_1` FOREIGN KEY (`cafe_staff_id`) REFERENCES `user` (`user_id`),
+  ADD CONSTRAINT `staff_workslots_ibfk_1` FOREIGN KEY (`cafe_staff_id`) REFERENCES `cafe_staff` (`cafe_staff_id`),
   ADD CONSTRAINT `staff_workslots_ibfk_2` FOREIGN KEY (`workslot_id`) REFERENCES `workslot` (`workslot_id`);
 
 --
