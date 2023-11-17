@@ -1,3 +1,3 @@
 <?php
-    header("Location: ./Boundary/LoginPage.php");
+    header("Location: ./src/Boundary/LoginPage.php");
 ?>
