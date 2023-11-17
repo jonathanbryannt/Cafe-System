@@ -29,6 +29,7 @@ include_once "../Controller/SystemAdminCreateUserController.php";
 $createUserController = new SystemAdminCreateUserController();
 $allProfiles = $createUserController->getProfiles();
 
+$message = '';
 if(isset($_POST['submit'])) {   
     
     $selectedProfile = explode(',', $_POST['profile']);    

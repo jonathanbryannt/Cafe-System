@@ -29,7 +29,7 @@ session_start();
 include_once "../Controller/CafeStaffChooseRoleController.php";
 
 $chooseRoleController = new CafeStaffChooseRoleController();
-
+$message = '';
 if(isset($_POST['submit'])) {        
     $roleData = array("role"=>$_POST['role'], "cafe_staff_id"=>$_SESSION['cafe_staff_id']);
     if($chooseRoleController->chooseRole($roleData)) {

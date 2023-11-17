@@ -11,7 +11,7 @@ class DAO {
         $dbname = "CSIT314";        
 
         $this->connection = new mysqli($servername, $username, $password, $dbname);
-        if($this->$connection->connect_error) (die("connection failed"));
+        if($this->connection->connect_error) (die("connection failed"));
     }
 
     public function get_connection() {

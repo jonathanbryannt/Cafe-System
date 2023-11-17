@@ -23,6 +23,7 @@
 
 include_once "../Controller/SystemAdminCreateProfileController.php";
 
+$message = '';
 if(isset($_POST['submit'])) {        
     $profileData = array("name"=>$_POST["name"]);
     $createProfileController = new SystemAdminCreateProfileController();        

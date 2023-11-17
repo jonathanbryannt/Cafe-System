@@ -60,14 +60,18 @@ class Workslot {
     public function deleteWorkslotById($id) {
         $DAO = new DAO();
         $connection = $DAO->get_connection();
-
+    
         $sql  = "DELETE FROM `workslot` WHERE `workslot`.`workslot_id` = '$id'";
-        if($connection->query($sql)) {
-            return true;
-        }else {
+        
+        try {
+            if ($connection->query($sql)) {
+                return true;
+            }
+        } catch (Exception $e) {            
             return false;
         }
     }
+    
 
     public function assignWorkslot($assignData) {
         $DAO = new DAO();

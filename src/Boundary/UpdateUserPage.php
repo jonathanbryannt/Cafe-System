@@ -31,6 +31,7 @@ $updateUserController = new SystemAdminUpdateUserController();
 $userToUpdate = ($updateUserController->getUserById($_GET['id']))->fetch_assoc();
 $allProfiles = $updateUserController->getProfiles();
 
+$message = '';
 if(isset($_POST['submit'])) {        
     $userData = array("email"=>$_POST["email"], "name"=>$_POST["name"], "profile_id"=>$_POST["profile_id"], "user_id"=>$_GET['id']);            
     if($updateUserController->updateUser($userData)) {

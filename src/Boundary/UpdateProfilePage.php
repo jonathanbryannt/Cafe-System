@@ -27,6 +27,7 @@ $updateProfileController = new SystemAdminUpdateProfileController();
 
 $profileToUpdate = ($updateProfileController->getProfileById($_GET['id']))->fetch_assoc();
 
+$message = '';
 if(isset($_POST['submit'])) {        
     $profileData = array("name"=>$_POST["name"], "id"=>$_GET['id']);        
     if($updateProfileController->updateProfile($profileData)) {

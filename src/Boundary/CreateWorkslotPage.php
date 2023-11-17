@@ -28,6 +28,7 @@ include_once "../Controller/CafeOwnerCreateWorkslotController.php";
 
 $createWorkslotController = new CafeOwnerCreateWorkslotController();
 
+$message = '';
 if(isset($_POST['submit'])) {            
     $workslotData = array("workslot_name"=>$_POST["workslot_name"], "workslot_date"=>$_POST["date"], "start_time"=>$_POST["start_time"], "end_time"=>$_POST["end_time"]);
     if($createWorkslotController->createWorkslot($workslotData)) {

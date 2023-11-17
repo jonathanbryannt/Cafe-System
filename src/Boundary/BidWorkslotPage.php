@@ -23,6 +23,7 @@ while($workslot = $allWorkslots->fetch_assoc()) {
         'end_time' => $workslot['end_time']
     ];
 }
+$message = '';
 
 if(isset($_GET['id'])) {
     if(isset($_SESSION['cafe_staff_role'])) {

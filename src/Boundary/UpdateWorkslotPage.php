@@ -9,6 +9,7 @@ $updateWorkslotController = new CafeOwnerUpdateWorkslotController();
 
 $workslotToUpdate = ($updateWorkslotController->getWorkslotById($_GET['id']))->fetch_assoc();
 
+$message = '';
 if(isset($_POST['submit'])) {        
     $workslotData = array("workslot_name"=>$_POST["workslot_name"], "workslot_date"=>$_POST["date"], "start_time"=>$_POST["start_time"], "end_time"=>$_POST["end_time"], "workslot_id"=>$_GET['id']);            
     if($updateWorkslotController->updateWorkslot($workslotData)) {
