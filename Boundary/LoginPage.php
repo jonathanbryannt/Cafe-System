@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 include_once "../Controller/LoginController.php";
 
 if (isset($_POST["login"])) {
@@ -7,7 +9,25 @@ if (isset($_POST["login"])) {
     $password = $_POST['password'];    
 
     $login = new LoginController();
-    $login->login($email, $password);
+    $user = $login->login($email, $password);
+    
+    if($user != null) {
+        if($_SESSION['currentProfile'] == "SYSTEM ADMIN") {
+            header("Location: SystemAdminDashboardPage.php");
+        } else if($_SESSION['currentProfile'] == "CAFE OWNER") {
+            header("Location: CafeOwnerDashboardPage.php");
+        } else if($_SESSION['currentProfile'] == "CAFE MANAGER") {
+            header("Location: CafeManagerDashboardPage.php");
+        } else if($_SESSION['currentProfile'] == "CAFE STAFF") {
+            $staff_id = (($user->getStaffById($user->getId()))->fetch_assoc())['cafe_staff_id'];
+            $staff_role = (($user->getStaffById($user->getId()))->fetch_assoc())['role'];
+            $_SESSION['cafe_staff_id'] = $staff_id;
+            $_SESSION['cafe_staff_role'] = $staff_role;
+            header("Location: CafeStaffDashboardPage.php");
+        }
+    } else {
+        $message = "wrong username or password!";
+    }
 }
 
 ?>
@@ -42,15 +62,16 @@ if (isset($_POST["login"])) {
                                         <div class="form-floating mb-3">
                                             <input class="form-control" id="inputPassword" name="password" type="password" placeholder="Password" required />
                                             <label for="inputPassword">Password</label>
-                                        </div>
-                                        <div class="form-check mb-3">
-                                            <input class="form-check-input" id="inputRememberPassword" name="remember" type="checkbox" value="1" />
-                                            <label class="form-check-label" for="inputRememberPassword">Remember Password</label>
-                                        </div>
+                                        </div>                                       
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">                                            
                                             <button class="btn btn-primary" type="submit" name="login">Login</button>
                                         </div>
                                     </form>
+                                    <?php if (isset($message)): ?>
+                                        <div class="alert alert-danger mt-3" role="alert">
+                                            <?php echo $message; ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>                                  
                             </div>
                         </div>

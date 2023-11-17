@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 16, 2023 at 09:09 AM
+-- Generation Time: Nov 17, 2023 at 03:49 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -82,7 +82,8 @@ CREATE TABLE `staff_bid_workslot` (
 --
 
 INSERT INTO `staff_bid_workslot` (`staff_bid_workslot_id`, `cafe_staff_id`, `workslot_id`, `bid_role`, `bid_status`) VALUES
-(14, 1, 13, 'Chef', 'Approved');
+(14, 1, 13, 'Chef', 'Approved'),
+(15, 1, 13, 'Chef', 'Rejected');
 
 -- --------------------------------------------------------
 
@@ -154,14 +155,15 @@ CREATE TABLE `workslot` (
   `workslot_date` date NOT NULL,
   `start_time` time NOT NULL,
   `end_time` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ;
 
 --
 -- Dumping data for table `workslot`
 --
 
 INSERT INTO `workslot` (`workslot_id`, `workslot_name`, `chef_qty`, `cashier_qty`, `waiter_qty`, `workslot_date`, `start_time`, `end_time`) VALUES
-(13, 'workslot1', 1, 0, 0, '2023-11-23', '15:02:00', '21:02:00');
+(13, 'workslot1', 1, 0, 0, '2023-11-23', '15:02:00', '21:02:00'),
+(14, 'workslot-2', 0, 0, 0, '2023-11-24', '10:30:00', '22:30:00');
 
 --
 -- Triggers `workslot`
@@ -244,7 +246,7 @@ ALTER TABLE `profile`
 -- AUTO_INCREMENT for table `staff_bid_workslot`
 --
 ALTER TABLE `staff_bid_workslot`
-  MODIFY `staff_bid_workslot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `staff_bid_workslot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `staff_workslots`
@@ -262,7 +264,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `workslot`
 --
 ALTER TABLE `workslot`
-  MODIFY `workslot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `workslot_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
