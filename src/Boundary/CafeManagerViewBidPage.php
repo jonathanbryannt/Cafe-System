@@ -48,6 +48,7 @@ $allBids = $viewBidController->getBids();
                             <tr>
                                 <th>Bid ID</th>
                                 <th>Cafe Staff ID</th>
+                                <th>Cafe Staff Role</th>
                                 <th>Workslot ID</th>
                                 <th>Workslot Name</th>
                                 <th>Workslot Date</th>
@@ -64,6 +65,7 @@ $allBids = $viewBidController->getBids();
                                 echo "<tr>
                                         <td>{$bid['staff_bid_workslot_id']}</td>
                                         <td>{$bid['cafe_staff_id']}</td>
+                                        <td>{$bid['role']}</td>
                                         <td>{$bid['workslot_id']}</td>
                                         <td>{$bid['workslot_name']}</td>
                                         <td>{$bid['workslot_date']}</td>

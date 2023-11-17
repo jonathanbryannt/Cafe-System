@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 17, 2023 at 10:20 AM
+-- Generation Time: Nov 17, 2023 at 11:51 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.12
 
@@ -72,7 +72,7 @@ INSERT INTO `cafe_staff` (`cafe_staff_id`, `user_id`, `role`) VALUES
 (33, 165, NULL),
 (34, 166, NULL),
 (35, 167, NULL),
-(36, 168, NULL),
+(36, 168, 'Waiter'),
 (37, 169, NULL),
 (38, 170, NULL),
 (39, 171, NULL),
@@ -140,8 +140,8 @@ CREATE TABLE `staff_bid_workslot` (
 INSERT INTO `staff_bid_workslot` (`staff_bid_workslot_id`, `cafe_staff_id`, `workslot_id`, `bid_role`, `bid_status`) VALUES
 (14, 1, 13, 'Chef', 'Approved'),
 (15, 1, 13, 'Chef', 'Rejected'),
-(20, 1, 15, 'Chef', 'Open'),
-(21, 1, 16, 'Chef', 'Open'),
+(20, 1, 15, 'Chef', 'Approved'),
+(21, 1, 16, 'Chef', 'Rejected'),
 (22, 1, 17, 'Chef', 'Open'),
 (23, 1, 18, 'Chef', 'Open'),
 (24, 1, 19, 'Chef', 'Open'),
@@ -150,7 +150,8 @@ INSERT INTO `staff_bid_workslot` (`staff_bid_workslot_id`, `cafe_staff_id`, `wor
 (27, 1, 22, 'Chef', 'Open'),
 (28, 1, 23, 'Chef', 'Open'),
 (29, 1, 24, 'Chef', 'Open'),
-(30, 1, 25, 'Chef', 'Open');
+(30, 1, 25, 'Chef', 'Open'),
+(31, 36, 19, 'Waiter', 'Approved');
 
 -- --------------------------------------------------------
 
@@ -175,7 +176,8 @@ INSERT INTO `staff_workslots` (`staff_workslots_id`, `cafe_staff_id`, `workslot_
 (12, 5, 17),
 (11, 27, 15),
 (13, 27, 24),
-(14, 27, 33);
+(14, 27, 33),
+(16, 36, 19);
 
 -- --------------------------------------------------------
 
@@ -369,11 +371,11 @@ CREATE TABLE `workslot` (
 INSERT INTO `workslot` (`workslot_id`, `workslot_name`, `chef_qty`, `cashier_qty`, `waiter_qty`, `workslot_date`, `start_time`, `end_time`) VALUES
 (13, 'workslot1', 1, 0, 0, '2023-11-23', '15:02:00', '21:02:00'),
 (14, 'workslot-2', 0, 0, 0, '2023-11-24', '10:30:00', '22:30:00'),
-(15, 'workslot 10', 1, 1, 0, '2023-11-20', '15:00:00', '21:00:00'),
+(15, 'workslot 10', 2, 1, 0, '2023-11-20', '15:00:00', '21:00:00'),
 (16, 'workslot 11', 0, 1, 0, '2023-11-21', '15:00:00', '21:00:00'),
 (17, 'workslot 12', 0, 0, 1, '2023-11-22', '15:00:00', '21:00:00'),
 (18, 'workslot 13', 0, 0, 0, '2023-11-23', '15:00:00', '21:00:00'),
-(19, 'workslot 14', 0, 0, 0, '2023-11-24', '15:00:00', '21:00:00'),
+(19, 'workslot 14', 0, 0, 1, '2023-11-24', '15:00:00', '21:00:00'),
 (20, 'workslot 15', 0, 0, 0, '2023-11-25', '15:00:00', '21:00:00'),
 (21, 'workslot 16', 0, 0, 0, '2023-11-26', '15:00:00', '21:00:00'),
 (22, 'workslot 17', 0, 0, 0, '2023-11-27', '15:00:00', '21:00:00'),
@@ -492,13 +494,13 @@ ALTER TABLE `profile`
 -- AUTO_INCREMENT for table `staff_bid_workslot`
 --
 ALTER TABLE `staff_bid_workslot`
-  MODIFY `staff_bid_workslot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `staff_bid_workslot_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `staff_workslots`
 --
 ALTER TABLE `staff_workslots`
-  MODIFY `staff_workslots_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `staff_workslots_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `user`

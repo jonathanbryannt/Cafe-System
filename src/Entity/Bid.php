@@ -20,7 +20,9 @@ class Bid {
         $DAO = new DAO();
         $connection = $DAO->get_connection();
 
-        $sql = "SELECT `staff_bid_workslot_id`, `cafe_staff_id`, `staff_bid_workslot`.`workslot_id`, `workslot_name`, `workslot_date`, `start_time`, `end_time`, `bid_status` FROM `staff_bid_workslot` LEFT JOIN `workslot` ON `staff_bid_workslot`.`workslot_id` = `workslot`.`workslot_id`";
+        $sql = "SELECT `staff_bid_workslot_id`, `staff_bid_workslot`.`cafe_staff_id`, `cafe_staff`.`role`, `staff_bid_workslot`.`workslot_id`, `workslot_name`, `workslot_date`, `start_time`, `end_time`, `bid_status` FROM `staff_bid_workslot` 
+        LEFT JOIN `workslot` ON `staff_bid_workslot`.`workslot_id` = `workslot`.`workslot_id` 
+        LEFT JOIN `cafe_staff` ON `staff_bid_workslot`.`cafe_staff_id` = `cafe_staff`.`cafe_staff_id`;";
         return $connection->query($sql);
     }
 
