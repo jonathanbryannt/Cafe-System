@@ -1,9 +1,9 @@
 <?php
 
-include_once "../Entity/Workslot.php";
+include_once "../Controller/CafeManagerUnassignStaffFromWorkslotController.php";
 
-$workslot = new Workslot();
-$workslot->unassignWorkslot($_GET['id'], $_GET['workslotid'], $_GET['staffRole']);
+$UnassignStaffController = new CafeManagerUnassignStaffFromWorkslotController();
+$UnassignStaffController->unassignStaffFromWorkslot($_GET['id'], $_GET['workslotid'], $_GET['staffRole']);
 
 header("Location: ViewAssignedStaffPage.php");
 

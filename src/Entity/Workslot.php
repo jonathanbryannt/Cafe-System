@@ -102,7 +102,7 @@ class Workslot {
         return false;
     }
 
-    public function unassignWorkslot($staffWorkslotId, $workslotId, $staffRole) {
+    public function unassignStaffFromWorkslot($staffWorkslotId, $workslotId, $staffRole) {
         $DAO = new DAO();
         $connection = $DAO->get_connection();
 
